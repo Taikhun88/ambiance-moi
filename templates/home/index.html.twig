@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{ parent()}}
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent()}}
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent()}}
+{% endblock %}
+{% block body %}
+	{# Video introducting the business model to hook up users  #}
+	<section class="section-one-bg d-flex flex-column text-center">
+		<h1 class="text-center my-3">Louez, on pose tout, vous restez posé et vous vous ambiancez</h1>
+			<h2>Titre vidéo</h2>
+			<img src="" alt="">
+			<video class="w-75 m-auto" controls>
+				<source src="movie.mp4" type="video/mp4">
+				<source src="movie.ogg" type="video/ogg">Your browser does not support the video tag.
+			</video>
+	</section>
+
+	{# Feed of image or video posts to promote #}
+	<section class="section-two-bg d-flex flex-row flex-wrap text-center">
+		<h2 class="w-100">Titre section 2</h2>
+		<div class="d-flex flex-row flex-wrap w-100 justify-content-around">
+			<div>
+				<div>
+					<img src="https://fakeimg.pl/350x200/bde0fe/">
+				</div>
+				<figcaption>Titre media</figcaption>
+			</div>
+			<div>
+				<div>
+					<img src="https://fakeimg.pl/350x200/bde0fe/">
+				</div>
+				<figcaption>Titre media</figcaption>
+			</div>
+			<div>
+				<div>
+					<img src="https://fakeimg.pl/350x200/bde0fe/">
+				</div>
+				<figcaption>Titre media</figcaption>
+			</div>
+			<div>
+				<div>
+					<img src="https://fakeimg.pl/350x200/bde0fe/">
+				</div>
+				<figcaption>Titre media</figcaption>
+			</div>
+			<div>
+				<div>
+					<img src="https://fakeimg.pl/350x200/bde0fe/">
+				</div>
+				<figcaption>Titre media</figcaption>
+			</div>
+			<div>
+				<div>
+					<img src="https://fakeimg.pl/350x200/bde0fe/">
+				</div>
+				<figcaption>Titre media</figcaption>
+			</div>
+		</div>
+	</section>
+
+	{# Section speaks about the founders #}
+	<section class="section-three-bg d-flex flex-column text-center">
+		<h2>Titre section 3</h2>
+		<div>
+			<img class="img-fluid" src="{{ asset('images/who-are-we-section.jpg') }}" alt="">
+		</div>
+	</section>
+{% endblock %}

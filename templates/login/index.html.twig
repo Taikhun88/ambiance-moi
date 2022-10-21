@@ -1,0 +1,40 @@
+{# templates/login/index.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Se connecter -
+	{{ parent() }}
+{% endblock %}
+
+{% block body %}
+	<div class='d-flex flex-column align-items-center my-3'>
+
+		{% if error %}
+			<div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+		{% endif %}
+
+		<form class="border border-primary rounded p-5 mt-5 shadow" id="login-form" action="{{ path('app_login') }}" method="post">
+
+			<h1 class="mb-3">Se connecter</h1>
+
+			{# Protect the form agains CSRF attacks #}
+			<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+			<div class="my-3">
+				<label class="w-50" for="username">Identifiant :</label>
+				<input type="text" id="username" placeholder="votre_email@gmail.com" name="_username" value="{{ last_username }}"/>
+			</div>
+
+			<div class="my-3">
+				<label class="w-50" for="password">Mot de passe :</label>
+				<input type="password" id="password" name="_password"/>
+			</div>
+
+			{# If you want to control the URL the user is redirected to on success				        <input type="hidden" name="_target_path" value="/account"/> #}
+			<button class="btn-md btn-primary rounded" type="submit">Se connecter</button>
+			<div class="div-redirect-to-register my-1">Vous n'avez pas d'identifiant? 
+				<a class="redirect-login-to-register" href="{{ path('app_register') }}">Inscrivez-vous ici</a>
+			</div>
+		</form>
+
+	</div>
+{% endblock %}

@@ -27,12 +27,26 @@ body {
     height: 30.25vw;
 }
 
+/* Login page */
+
+.div-redirect-to-register {
+    font-size: smaller;
+}
+
+#login-form .redirect-login-to-register{
+    color: gray;
+}
+
+#login-form .redirect-login-to-register:hover {
+    color: red;
+}
+
 /* FOOTER */
 .footer-style {
     height: 100px;
     background-color: #212529;
     color: whitesmoke;
-    /* margin-top: 100vh; */
+    margin-top: 20vh;
 }
 
 .footer-style > div {

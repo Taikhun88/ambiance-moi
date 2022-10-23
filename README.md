@@ -6,4 +6,16 @@ Au préalable, avoir créé la bdd (donc configuration variable Database URL dan
 2. Migrer le tout avec les commandes indiquées dans le terminal
 3. Créer le formulaire d'inscription avec la commande make:registration-form (penser à installer le bundle verify email bundle au préalable)
 4. Configurer la variable MAILER_DSN et obtenir autorisation et clé du compte mail en question pour l'envoi de mails via l'app
-5. Pour le bon fonctionnement, penser à installer le bundle propre au compte mail. Si un compte google alors commande google mailer etc.
+5. Pour le bon fonctionnement, penser à installer le bundle propre au compte mail. Si un compte google alors commande google mailer etc.  
+https://symfony.com/doc/current/security.html#form-login  
+
+
+### CRUD User  
+ 1. Ajouter les properties requises à l'entité User via la commande make:entity et les schema update force ou migrate
+ 2. Créer les templates pour le CRUD
+ 3. Créer le builder form via un UserFormType.php et paramétrer l'option data. Ajouter les champs form row dans les templates
+ 4. Dans les méthodes de création et update, faire appel à l'objet Form pour l'affichage, la soumission et vérification (processing form).
+ 5. Penser à persist et ou flush les data 
+ 6. Créer le message de confirmation post action et paramétrer la redirectionToRoute 
+
+ https://symfony.com/doc/current/forms.html

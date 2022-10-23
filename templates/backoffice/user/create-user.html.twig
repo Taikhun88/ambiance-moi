@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouvel utilisateur -
+	{{ parent() }}
+{% endblock %}
+
+{% block body %}
+	<div class='d-flex flex-column align-items-center text-center'>
+		<form class="new-user-form border border-primary rounded p-5 mt-5 shadow" action="" method="post">
+			<h1 class="mb-5">Créer un utilisateur</h1>
+			<div>
+				<label class="w-50" for="pseudo">Pseudo</label>
+				<input type="text" name="pseudo" id="name" required>
+			</div>
+			<div>
+				<label class="w-50" for="email">Email</label>
+				<input type="email" name="email" id="email" required>
+			</div>
+			<div>
+				<label class="w-50" for="">Mot de passe</label>
+				<input type="password" name="password" id="password" required>
+			</div>
+			<div>
+				<label class="w-50" for="avatar">Avatar</label>
+				<input class="mb-3" type="text" name="image" id="image">
+			</div>
+			{# <div>
+				<label class="w-50" for=""></label>
+				<input type="text">
+			</div> #}
+
+			<input class="btn btn-md btn-primary rounded" type="submit" value="Valider">
+
+		</form>
+	</div>
+
+{% endblock %}

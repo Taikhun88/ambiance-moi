@@ -10,6 +10,7 @@
 	<div class='w-50 m-auto my-3'>
 		<h1>S'inscrire</h1>
 		{{ form_start(registrationForm) }}
+		{{ form_row(registrationForm.pseudo) }}
 		{{ form_row(registrationForm.email) }}
 		{{ form_row(registrationForm.plainPassword, {
             label: 'Mot de passe'

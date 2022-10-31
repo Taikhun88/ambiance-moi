@@ -15,26 +15,24 @@
 				<li class="nav-item">
 					<a class="nav-link" href="#">Packs ambiance</a>
 				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="{{ app.user ? path('app_logout') : path('app_login') }}">{{ app.user ? 'Se déconnecter' : 'Se connecter' }}</a>
-				</li>
-				{# <li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-						Link
-					</a>
-					<ul class="dropdown-menu">
+
+
+				<div class="dropdown-center">
+					<button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+						{{ app.user ? 'Mon profil' : 'Se connecter' }}
+					</button>
+					<ul class="dropdown-menu {{ app.user ? 'd-inline-block' : 'd-none' }}">
 						<li>
-							<a class="dropdown-item" href="#">Action</a>
+							<a class="dropdown-item" href="#">Mes informations</a>
 						</li>
-						<li>
-							<a class="dropdown-item" href="#">Another action</a>
+						<li class="">
+							<a class="dropdown-item" href="{{ path('app_backoffice_home') }}"></a>
 						</li>
-						<li><hr class="dropdown-divider"></li>
-						<li>
-							<a class="dropdown-item" href="#">Something else here</a>
+						<li class="nav-item">
+							<a class="nav-link text-dark" href="{{ app.user ? path('app_logout') : path('app_login') }}">{{ app.user ? 'Se déconnecter' : 'Se connecter' }}</a>
 						</li>
 					</ul>
-				</li> #}
+				</div>
 			</ul>
 		</div>
 	</div>

@@ -68,7 +68,6 @@ class UserController extends AbstractController
     #[Route('/edit/{id}', name:'edit', methods:['GET', 'POST'])]
     public function edit(Request $request, User $user, ImageUploader $imageUploader,EntityManagerInterface $entityManager): Response
     {   
-        // dd($user);
 
         $form = $this->createForm(UserFormType::class, $user);
         
@@ -95,5 +94,19 @@ class UserController extends AbstractController
         return $this->renderForm('backoffice/user/edit.html.twig', [
             'form' => $form,
         ]);
+    }
+
+    #[Route('/delete/{id}', name:'delete')]
+    public function delete(Request $request, User $user, EntityManagerInterface $entityManager): Response
+    {   
+        $this->denyAccessUnlessGranted('ROLE_USER', $user, 'Vous n\'avez pas les droits pour supprimer cet utilisateur');
+        if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
+            $entityManager->remove($user);
+            $entityManager->flush();
+
+            $this->addFlash('danger', 'Cet utilisateur a bien été supprimé');
+        }
+
+        return $this->redirectToRoute('backoffice_user_index', [], Response::HTTP_SEE_OTHER);
     }
 }

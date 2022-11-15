@@ -3,6 +3,40 @@ body {
     padding: 0;
 }
 
+/* COMPONENTS, BUTTONS etc. */
+.btn-edit {
+    width: 45px;
+    height: 40px;
+    padding: 0;
+    margin: 0;
+}
+
+.btn-delete {
+    width: 45px;
+    height: 40px;
+    padding: 0;
+    margin: 0;
+}
+
+/* color-btn navbar */
+.text-green {
+    color: #76c893!important;
+}
+.text-green:hover {
+    opacity: 0.6;
+}
+
+.text-purple {
+    color: #cdb4db!important;
+}
+.text-purple:hover {
+    opacity: 0.6;
+}
+
+.btn-delete.btn-sm {
+    padding-top: 8px;
+}
+
 /* HOMEPAGE */
 /* section 1 */
 .section-one-bg {
@@ -59,7 +93,7 @@ body {
 }
 
 #users-grid div {
-    width: 31%;
+    width: 100%;
     border-right: 1px solid black;
     
 }

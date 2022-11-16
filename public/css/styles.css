@@ -18,6 +18,18 @@ body {
     margin: 0;
 }
 
+.btn-size {
+    width: 75px!important;
+    height: 50px!important;
+}
+
+#container-btn > div > a.btn {
+    width: 175px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 /* color-btn navbar */
 .text-green {
     color: #76c893!important;

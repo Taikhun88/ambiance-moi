@@ -6,44 +6,24 @@
 
 {% block body %}
 
-	<div class="text-center">
-		<h1 class="my-3">Bienvenue sur votre interface de gestion</h1>
+	<div class="text-center d-flex flex-column container">
+		<h1 class="my-3">Bienvenue sur l'interface de gestion des données</h1>
 
-		{# Liste des utilisateurs existants
-		<div class="d-flex flex-row border border-dark w-75 justify-content-around m-auto" id="users-grid">
-			<div id="id-header">
-				<span class="users-headers">Id</span>
-				{% for user in users %}
-					<div class="users-cells {{loop.last == loop.length ? 'border-bt-none' : ''}}">
-						{{ user.id }}
-					</div>
-				{% endfor %}
+		<div class="row" id="container-btn">
+			<div class="col-6 col-md-4 col-lg-3 my-1">
+				<a class="btn btn-primary btn-sm"href="{{ path('backoffice_user_index') }}">Utilisateurs</a>
 			</div>
-			<div>
-				<span class="users-headers">Email</span>
-				{% for user in users %}
-					<div class="users-cells {{loop.last == loop.length ? 'border-bt-none' : ''}}">
-						{{ user.email }}
-					</div>
-				{% endfor %}
+			<div class="col-6 col-md-4 col-lg-3 my-1">
+				<a class="btn btn-primary btn-sm"href="#">Catégories de produits</a>
 			</div>
-			<div>
-				<span class="users-headers">Rôles</span>
-				{% for user in users %}
-					<div class="users-cells {{loop.last == loop.length ? 'border-bt-none' : ''}}">
-						{{ user.roles|json_encode }}
-					</div>
-				{% endfor %}
+			<div class="col-6 col-md-4 col-lg-3 my-1">
+				<a class="btn btn-primary btn-sm"href="#">Produits</a>
 			</div>
-			<div id="is-verified-column">
-				<span class="users-headers">Utilisateurs vérifiés</span>
-				{% for user in users %}
-					<div class="users-cells {{loop.last == loop.length ? 'border-bt-none' : ''}}">
-						{{ user.isVerified == 0 ? 'non-vérifié' : 'vérifié' }}
-					</div>
-				{% endfor %}
+			<div class="col-6 col-md-4 col-lg-3 my-1">
+				<a class="btn btn-primary btn-sm"href="#">Posts</a>
+			</div>
+		</div>
 
-			</div>
-		</div> #}
+
 	</div>
 {% endblock %}

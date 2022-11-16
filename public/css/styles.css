@@ -23,6 +23,15 @@ body {
     height: 50px!important;
 }
 
+ul.mt-dropdownmenu {
+    top:142%!important;
+}
+
+.btn-bg-style > li > a.dropdown-item {
+    background-color: #212529;
+    color: whitesmoke;
+}
+
 #container-btn > div > a.btn {
     width: 175px;
     display: flex;

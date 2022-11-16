@@ -23,26 +23,23 @@
 				</li>
 
 				{% if app.user %}
-				<div class="dropdown-center mx-1">
-					<button class="btn btn-outline-secondary dropdown-toggle text-white" type="button" data-bs-toggle="dropdown" aria-expanded="true">
-						<i class="fas fa-user-circle fa-lg"></i>
-					</button>
-					<ul class="dropdown-menu btn btn-outline-dark" data-bs-toggle="dropdown" aria-expanded="false">
-						<li>
-							<a class="dropdown-item text-white" href="{{ path('app_backoffice_home') }}">Mes informations</a>
-						</li>
-						<li class="">
-							<a class="dropdown-item text-white" href="{{ path('app_backoffice_home') }}">Backoffice</a>
-						</li>
-						{# <li class="nav-item">
-							<a class="nav-link text-dark" href="{{ app.user ? path('app_logout') : path('app_login') }}">{{ app.user ? 'Se déconnecter' : 'Se connecter' }}</a>
-						</li> #}
-					</ul>
-				</div>
+					<div class="dropdown" id="container-user-btnActions">
+						<button class="btn btn-outline-secondary dropdown-toggle text-white dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+							<i class="fas fa-user-circle fa-lg"></i>
+						</button>
+						<ul class="dropdown-menu btn-bg-style mt-dropdownmenu p-0">
+							<li>
+								<a class="dropdown-item" href="{{ path('app_backoffice_home') }}">Mes informations</a>
+							</li>
+							<li class="">
+								<a class="dropdown-item" href="{{ path('app_backoffice_home') }}">Backoffice</a>
+							</li>
+						</ul>
+					</div>
 				{% endif %}
 
 				<div class="dropdown-center">
-					<a class="btn {{ app.user ? 'dropdown-center btn-outline-danger' : 'btn-outline-info' }}" href="{{ app.user ? path('app_logout') : path('app_login') }}">{{ app.user ? '<i class="far fa-times-circle"></i> Se déconnecter' : '<i class="fas fa-sign-in-alt"></i> Se connecter' }}
+					<a class="btn {{ app.user ? 'dropdown-center btn-outline-danger mx-0 my-1 mx-md-0 my-md-1 mx-lg-1 my-lg-0' : 'btn-outline-info' }}" href="{{ app.user ? path('app_logout') : path('app_login') }}">{{ app.user ? '<i class="far fa-times-circle"></i> Se déconnecter' : '<i class="fas fa-sign-in-alt"></i> Se connecter' }}
 					</a>
 				</div>
 			</ul>

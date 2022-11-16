@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CRUD Utilisateurs -
+	{{ parent() }}
+{% endblock %}
+
+{% block body %}
+	<div class="text-center">
+		<h1 class="my-3">Gestion des utilisateurs</h1>
+
+		{# Liste des utilisateurs existants #}
+		<div class="d-flex flex-row border border-dark w-75 justify-content-around m-auto" id="users-grid">
+			{% for user in users %}
+				<div id="id-header">
+					<span class="users-headers">Id</span>
+					<div class="users-cells {{loop.last == loop.length ? 'border-bt-none' : ''}}">
+						{{ user.id }}
+					</div>
+				</div>
+				<div>
+					<span class="users-headers">Pseudo</span>
+
+					<div class="users-cells {{loop.last == loop.length ? 'border-bt-none' : ''}}">
+						{{ user.pseudo }}
+					</div>
+				</div>
+				<div>
+					<span class="users-headers">Email</span>
+
+					<div class="users-cells {{loop.last == loop.length ? 'border-bt-none' : ''}}">
+						{{ user.email }}
+					</div>
+				</div>
+				<div>
+					<span class="users-headers">Rôles</span>
+
+					<div class="users-cells {{loop.last == loop.length ? 'border-bt-none' : ''}}">
+						{{ user.roles|json_encode }}
+					</div>
+				</div>
+				<div id="is-verified-column">
+					<span class="users-headers">Utilisateurs vérifiés</span>
+
+					<div class="users-cells {{loop.last == loop.length ? 'border-bt-none' : ''}}">
+						{{ user.isVerified == 0 ? 'non-vérifié' : 'vérifié' }}
+					</div>
+				</div>
+				<div id="actions-column">
+					<span class="users-headers">Actions</span>
+
+					<div class="d-flex flex-row justify-content-center">
+						<a class="btn-edit btn btn-md btn-primary mx-1" href="{{ path('backoffice_user_edit', {'id': user.id}) }}"><i class="far fa-edit"></i></a>
+						<a class="btn-delete btn btn-sm btn-danger mx-1" href="{{ path('backoffice_user_delete', {'id': user.id}) }}"><i class="fas fa-trash-alt"></i></a>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}

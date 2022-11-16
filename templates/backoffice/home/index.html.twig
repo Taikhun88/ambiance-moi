@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil backoffice -
+	{{ parent() }}
+{% endblock %}
+
+{% block body %}
+
+	<div class="text-center">
+		<h1 class="my-3">Bienvenue sur votre interface de gestion</h1>
+
+		{# Liste des utilisateurs existants
+		<div class="d-flex flex-row border border-dark w-75 justify-content-around m-auto" id="users-grid">
+			<div id="id-header">
+				<span class="users-headers">Id</span>
+				{% for user in users %}
+					<div class="users-cells {{loop.last == loop.length ? 'border-bt-none' : ''}}">
+						{{ user.id }}
+					</div>
+				{% endfor %}
+			</div>
+			<div>
+				<span class="users-headers">Email</span>
+				{% for user in users %}
+					<div class="users-cells {{loop.last == loop.length ? 'border-bt-none' : ''}}">
+						{{ user.email }}
+					</div>
+				{% endfor %}
+			</div>
+			<div>
+				<span class="users-headers">Rôles</span>
+				{% for user in users %}
+					<div class="users-cells {{loop.last == loop.length ? 'border-bt-none' : ''}}">
+						{{ user.roles|json_encode }}
+					</div>
+				{% endfor %}
+			</div>
+			<div id="is-verified-column">
+				<span class="users-headers">Utilisateurs vérifiés</span>
+				{% for user in users %}
+					<div class="users-cells {{loop.last == loop.length ? 'border-bt-none' : ''}}">
+						{{ user.isVerified == 0 ? 'non-vérifié' : 'vérifié' }}
+					</div>
+				{% endfor %}
+
+			</div>
+		</div> #}
+	</div>
+{% endblock %}

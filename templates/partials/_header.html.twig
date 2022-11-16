@@ -1,0 +1,51 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+	<div class="container-fluid">
+		<a class="navbar-brand" href="{{ path('app_home') }}"><img src="{{ asset('logo1.png') }}" alt="" width="150px"></a>
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse justify-content-end" id="navbarScroll">
+			<ul class="navbar-nav navbar-nav-scroll" style="--bs-scroll-height: fit-content;">
+				<li class="nav-item">
+					<a class="nav-link text-green fw-bold" href="#">
+						<i class="fas fa-gamepad"></i>
+						Gaming'Room</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link text-purple fw-bold" href="#">
+						<i class="fas fa-film"></i>
+						4K'Room</a>
+				</li>
+				<li class="nav-item fw-bold">
+					<a class="nav-link" href="#">
+						<i class="fas fa-holly-berry"></i>
+						Nos déco</a>
+				</li>
+
+				{% if app.user %}
+				<div class="dropdown-center mx-1">
+					<button class="btn btn-outline-secondary dropdown-toggle text-white" type="button" data-bs-toggle="dropdown" aria-expanded="true">
+						<i class="fas fa-user-circle fa-lg"></i>
+					</button>
+					<ul class="dropdown-menu btn btn-outline-dark" data-bs-toggle="dropdown" aria-expanded="false">
+						<li>
+							<a class="dropdown-item text-white" href="{{ path('app_backoffice_home') }}">Mes informations</a>
+						</li>
+						<li class="">
+							<a class="dropdown-item text-white" href="{{ path('app_backoffice_home') }}">Backoffice</a>
+						</li>
+						{# <li class="nav-item">
+							<a class="nav-link text-dark" href="{{ app.user ? path('app_logout') : path('app_login') }}">{{ app.user ? 'Se déconnecter' : 'Se connecter' }}</a>
+						</li> #}
+					</ul>
+				</div>
+				{% endif %}
+
+				<div class="dropdown-center">
+					<a class="btn {{ app.user ? 'dropdown-center btn-outline-danger' : 'btn-outline-info' }}" href="{{ app.user ? path('app_logout') : path('app_login') }}">{{ app.user ? '<i class="far fa-times-circle"></i> Se déconnecter' : '<i class="fas fa-sign-in-alt"></i> Se connecter' }}
+					</a>
+				</div>
+			</ul>
+		</div>
+	</div>
+</nav>

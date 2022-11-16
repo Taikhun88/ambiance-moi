@@ -13,3 +13,4 @@ import './styles/styles.scss';
 import './bootstrap';
 
 require('bootstrap');
+require('bootstrap/dist/js/bootstrap.bundle');

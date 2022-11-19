@@ -29,7 +29,7 @@ class RegistrationController extends AbstractController
     }
 
     #[Route('/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, VerifyEmailHelperInterface $verifyEmailHelper): Response
+    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -48,20 +48,21 @@ class RegistrationController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            $verifyEmailHelper->generateSignature('app_verify_email', $user->getId(), $user->getEmail(), ['id' => $user->getId()]);
+            // $verifyEmailHelper->generateSignature('app_verify_email', $user->getId(), $user->getEmail(), ['id' => $user->getId()]);
 
             // generate a signed url and email it to the user
-            $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
+            $this->emailVerifier->sendEmailConfirmation(
+                'app_verify_email',
+                $user,
                 (new TemplatedEmail())
-                    ->from(new Address('taikun7887@gmail.com', 'Team AmbianceMoi'))
+                    ->from(new Address($request->server->get('EMAIL'), $request->server->get('NAME_EMAIL')))
                     ->to($user->getEmail())
                     ->subject('Merci de confirmer votre email')
                     ->htmlTemplate('registration/confirmation_email.html.twig')
             );
-            // do anything else you need here, like send an email
 
             $this->addFlash('success', "Un email de confirmation de compte vous a été envoyé");
-            
+
             return $this->redirectToRoute('app_home');
         }
 

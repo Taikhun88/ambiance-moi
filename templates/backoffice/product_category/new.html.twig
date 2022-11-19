@@ -1,22 +1,20 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Nouvel utilisateur -
+{% block title %}Nouvelle catégorie de produits -
 	{{ parent() }}
 {% endblock %}
 
 {% block body %}
 	<div class='d-flex flex-column align-items-center text-center'>
-		<h1 class="my-3">Créer un utilisateur</h1>
+		<h1 class="my-3">Créer une categorie de produits</h1>
 
 		{{ form_start(form) }}
 		{{ form_errors(form) }}
 
-		{{ form_row(form.pseudo) }}
-		{{ form_row(form.email) }}
-		{{ form_row(form.password) }}
-		{{ form_row(form.avatar) }}
+		{{ form_row(form.name, { 'label': 'Nom' }) }}
+		{{ form_row(form.image, { 'label': 'Image' }) }}
+
 		{{ form_widget(form.save, { 'label': 'Enregistrer' }) }}
-		{# https://symfony.com/doc/current/form/form_customization.html #}
 
 		{{ form_end(form) }}
 	</div>

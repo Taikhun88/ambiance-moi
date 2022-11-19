@@ -50,6 +50,7 @@ https://openclassrooms.com/forum/sujet/probleme-dinstalation-du-reset-password-b
 4b. Launch the command > php bin/console make:reset-password  
 4c. Follows the steps described in terminal (you can schema update instead of migrating)
 5. Configurer le DSN dans .env https://symfony.com/doc/current/mailer.html
+<hr>  
 
  ### Flash messages  
  1. Créer le add message dans le controller via l'abstract
@@ -59,10 +60,30 @@ https://openclassrooms.com/forum/sujet/probleme-dinstalation-du-reset-password-b
  https://nouvelle-techno.fr/articles/9-verification-d-adresse-email-sans-bundle-symfony-6
 <hr>  
 
+### Pre Authentification, validation du compte utilisateur
+1. Une fois le process make:user achevé. Il est nécessaire de créer le userChecker afin que l'utilisateur passe par l'étape de validation de création de compte grâce au lien envoyé par mail.
+Créer le UserChecker.php dans le Controller et ajouter la condition de pre authentication souhaitée dans la méthode checkPreAuth
+
+2. Si la méthode de post auth n'est pas utile alors commenter  
+
+https://symfony.com/doc/current/security/user_checkers.html#enabling-the-custom-user-checker
+<hr>  
+
 ### Personnalisation des input Symfony form avec les variables  
 
 https://symfony.com/doc/current/form/form_customization.html
 
  ##### DEBUG
  1. FileType de User.php. Lors de l'edit, la page ne peut afficher l'input. Passer le mapped à false dans le formtype de l'input concerné. Le bug se présente car l'input en edit charge un nom de fichier (string) depuis la database alors qu'il doit permettre de upload un file (objet).
+
+ 2. Some services can not be injected or autowired, which mean be called as a Service in the parameters of your function. To allow this to called as a service injected, Go to add the name of the service into the services.yaml file default : bind: "name of your service". In most cases, Symfony may provide you the proper name to add  
+ 
+ https://symfonycasts.com/screencast/symfony-security/manual-auth
+ 
+3. To allow the user to not be logged in (registration.controller) when they click the confirmation link in their email. With this mode, we need to pass an array as the final argument to include the user id
+['id' => $user->getId()]  
+
+https://symfonycasts.com/screencast/symfony-security/verify-email
+
+
 

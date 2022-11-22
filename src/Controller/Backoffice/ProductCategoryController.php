@@ -22,11 +22,13 @@ class ProductCategoryController extends AbstractController
         $listProductsCategories = $productCategoryRepository->findAll();
         // dd($listProductsCategories);
 
-        return $this->render('backoffice/product_category/index.html.twig');
+        return $this->render('backoffice/product_category/index.html.twig', [
+            'listProductsCategories' => $listProductsCategories,
+        ]);
     }
 
     #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
-    public function new(Request $request, ImageUploader $imageUploader, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, ImageUploader $imageUploader, EntityManagerInterface $entityManagerInterface): Response
     {
         $productCategory = new ProductCategory();
         $date = $productCategory->setCreatedAt(new DateTimeImmutable());
@@ -34,6 +36,7 @@ class ProductCategoryController extends AbstractController
         $form = $this->createForm(ProductCategoryFormType::class, $productCategory);
 
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
             $productCategory = $form->getData();
 
@@ -48,8 +51,8 @@ class ProductCategoryController extends AbstractController
                 $productCategory->setImage(strval($newFilename));
             }
 
-            $entityManager->persist($productCategory);
-            $entityManager->flush();
+            $entityManagerInterface->persist($productCategory);
+            $entityManagerInterface->flush();
 
             $this->addFlash('success', 'La nouvelle catégorie de produits a bien été créée');
 
@@ -59,5 +62,50 @@ class ProductCategoryController extends AbstractController
         return $this->renderForm('backoffice/product_category/new.html.twig', [
             'form' => $form,
         ]);
+    }
+
+    #[Route('/edit/{id}', name:'edit', methods:['GET','POST'])]
+    public function edit(ProductCategory $productCategory, ImageUploader $imageUploader, Request $request, EntityManagerInterface $entityManagerInterface): Response
+    {
+        $form = $this->createForm(ProductCategoryFormType::class, $productCategory);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $productCategory = $form->getData();
+            
+            // On effectue l'upload du fichier grâce au service ImageUploader
+            $newFilename = $imageUploader->upload($form, 'image', 'images/categories/');
+            
+            // on met à jour la propriété image 
+            if ($newFilename) {
+                $productCategory->setImage(strval($newFilename));
+            }         
+           
+            $entityManagerInterface->flush();
+
+            $this->addFlash('success', 'La catégorie ' . $productCategory->getName() . ' bien été mise à jour');
+
+            return $this->redirectToRoute('app_backoffice_product_category_index');
+        }
+
+        return $this->renderForm('backoffice/product_category/edit.html.twig', [
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/delete/{id}', name:'delete')]
+    public function delete(Request $request, ProductCategory $productCategory, EntityManagerInterface $entityManager)
+    {
+        $this->denyAccessUnlessGranted('ROLE_USER', $productCategory, 'Vous n\'avez pas les droits pour supprimer cette catégorie de produits');
+
+        if ($this->isCsrfTokenValid('delete' . $productCategory->getId(), $request->request->get('_token'))) {
+            $entityManager->remove($productCategory);
+            $entityManager->flush();
+
+            $this->addFlash('danger', 'Cette catégorie a bien été supprimée');
+        }
+
+        return $this->redirectToRoute('app_backoffice_product_category_index', [], Response::HTTP_SEE_OTHER);
     }
 }

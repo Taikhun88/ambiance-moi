@@ -56,7 +56,7 @@ class UserController extends AbstractController
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
-                    $form->get('password')->getData()
+                    $form->get('password')->getData() == null || "" ? "123456" : $form->get('password')->getData()
                 )
             );
 
@@ -69,23 +69,22 @@ class UserController extends AbstractController
         }
 
         return $this->renderForm('backoffice/user/new.html.twig', [
+            'user' => $user,
             'form' => $form,
         ]);
-    
-        //    return $this->render('backoffice/user/create-user.html.twig');
     }
 
     #[Route('/edit/{id}', name:'edit', methods:['GET', 'POST'])]
-    public function edit(Request $request, User $user, ImageUploader $imageUploader,EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, User $user, ImageUploader $imageUploader, EntityManagerInterface $entityManager): Response
     {   
-
         $form = $this->createForm(UserFormType::class, $user);
         
         $form->handleRequest($request);
 
+        $this->denyAccessUnlessGranted('ROLE_USER', $user, 'Vous n\'avez pas les droits pour modifier cet utilisateur');
+
         if ($form->isSubmitted() && $form->isValid()) {
             $user = $form->getData();
-
             
             // On effectue l'upload du fichier grâce au service ImageUploader
             $newFilename = $imageUploader->upload($form, 'avatar', 'images/avatars/');
@@ -94,8 +93,6 @@ class UserController extends AbstractController
             if ($newFilename) {
                 $user->setAvatar(strval($newFilename));
             }            
-
-            // TODO Crypter le password lors de la création d'un nouveau via le edit
             
             $entityManager->flush();
 
@@ -109,18 +106,21 @@ class UserController extends AbstractController
         ]);
     }
 
+    // Pas d'appel de méthode pour le bon fonctionnement de la méthode Delete
     #[Route('/delete/{id}', name:'delete')]
     public function delete(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {   
+        // check if logged user has the required role to proceed with the action
         $this->denyAccessUnlessGranted('ROLE_USER', $user, 'Vous n\'avez pas les droits pour supprimer cet utilisateur');
+
+        // Checks if the token (id of current user) submitted through the form delete is valid
         if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
+            // Delete then updates the data with the method remove and flush of the EntityManagerInterface
             $entityManager->remove($user);
             $entityManager->flush();
 
             $this->addFlash('danger', 'Cet utilisateur a bien été supprimé');
         }
-        // TODO Debug la suppression du user après click sur lien
-        // TODO Ajouter une confirmation avant suppression
 
         return $this->redirectToRoute('backoffice_user_index', [], Response::HTTP_SEE_OTHER);
     }

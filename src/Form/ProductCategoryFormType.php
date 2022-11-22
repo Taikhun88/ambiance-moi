@@ -14,9 +14,11 @@ class ProductCategoryFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        // Mapped false for Filetype deactivate the data matching checks between database and object models
+        // Therefore, using edit and new form can work efficently without conflicts
         $builder
             ->add('name', TextType::class)
-            ->add('image', FileType::class, ['mapped' => true])
+            ->add('image', FileType::class, ['mapped' => false])
             ->add('save', SubmitType::class)
         ;
     }

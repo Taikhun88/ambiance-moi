@@ -4,6 +4,7 @@ namespace App\Form\Type;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -24,8 +25,9 @@ class UserFormType extends AbstractType
         $builder
             ->add('pseudo', TextType::class)
             ->add('email', EmailType::class)
-            ->add('password', PasswordType::class)
+            ->add('password', PasswordType::class, ['mapped' => false])
             ->add('avatar', FileType::class, ['mapped' => false]) 
+            ->add('isVerified', CheckboxType::class, ['attr' => ['class' => 'mx-2'], 'label' => 'vérifié']) 
             ->add('save', SubmitType::class)
         ;
         // TODO input pour update image sur page edit user

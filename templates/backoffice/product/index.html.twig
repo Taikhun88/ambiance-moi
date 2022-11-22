@@ -1,0 +1,155 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CRUD Produits -
+		{{ parent() }}
+{% endblock %}
+
+{% block body %}
+	<div class="d-flex flex-column text-center" id="homeBO">
+		<h1 class="my-3">Gestion des produits</h1>
+		<div>
+			<a class="btn-edit btn btn-md btn-primary mx-2 my-2" href="{{ path('app_backoffice_product_new') }}">
+				<i class="fas fa-plus-square"></i>
+			</a>
+		</div>
+		{# USER CARD LOOPED #}
+		{% for product in products %}
+			<div class="d-flex flex-column container my-3 bg-info" id="container-usersCards">
+				<div class="col-12 bg-dark text-white fw-bold">{{ product.id }}
+					-
+					{{ product.name }}</div>
+				<div
+					class="d-flex flex-row row">
+					{# ENTETES PROPERTIES #}
+					<div class="col-4 col-md-5 col-lg-6 d-flex flex-column align-items-start fw-bold border border-start-0 border-secondary p-0">
+						<h5 class="border-bottom border-secondary h6 w-100 m-0">PROPERTIES HEADER</h5>
+						<div class="border-bottom border-secondary w-100 text-start">
+							Image de front
+						</div>
+						<div class="border-bottom border-secondary w-100 text-start">
+							Image de profil
+						</div>
+						<div class="border-bottom border-secondary w-100 text-start">
+							Image de haut
+						</div>
+						<div class="border-bottom border-secondary w-100 text-start">
+							Description
+						</div>
+						<div class="border-bottom border-secondary w-100 text-start">
+							Poids
+						</div>
+						<div class="border-bottom border-secondary w-100 text-start">
+							Volume
+						</div>
+						<div class="border-bottom border-secondary w-100 text-start">
+							Hauteur
+						</div>
+						<div class="border-bottom border-secondary w-100 text-start">
+							Largeur
+						</div>
+						<div class="border-bottom border-secondary w-100 text-start">
+							Catégorie
+						</div>
+						<div class="{{ loop.last ? ' ' : 'border-bottom border-secondary' }} w-100 text-start">Créé le</div>
+					</div>
+					{# USERS DATA #}
+					<div class="col-8 col-md-7 col-lg-6 border border-start-0 border-end-0 border-secondary p-0">
+						<h5 class="border-bottom border-secondary h6 m-0">DATA HEADERS</h5>
+						<div class="border-bottom border-secondary w-100 text-start">
+							{{ product.imageFront ?  product.imageFront : "N/A" }}
+						</div>
+						<div class="border-bottom border-secondary w-100 text-start">
+							{{ product.imageProfile ?  product.imageProfile : "N/A" }}
+						</div>
+						<div class="border-bottom border-secondary w-100 text-start">
+							{{ product.imageTop ?  product.imageTop : "N/A" }}
+						</div>
+						<div class="border-bottom border-secondary w-100 text-start">
+							{{ product.description ?  product.description : "N/A" }}
+						</div>
+						<div class="border-bottom border-secondary w-100 text-start">
+							{{ product.weight ? product.weight : 0 }}
+						</div>
+						<div class="border-bottom border-secondary w-100 text-start">
+							{{ product.volume ? product.volume : 0 }}
+						</div>
+						<div class="border-bottom border-secondary w-100 text-start">
+							{{ product.height ? product.height : 0 }}
+						</div>
+						<div class="border-bottom border-secondary w-100 text-start">
+							{{ product.length ? product.length : 0 }}
+						</div>
+						<div class="border-bottom border-secondary w-100 text-start">
+							N/A
+						</div>
+						<div class="{{ loop.last ? ' ' : 'border-bottom border-secondary' }} w-100 text-start">
+							{{ product.createdAt|date("d-m-Y") ? product.createdAt|date("d-m-Y") :  product.createdAt|json_encode }}
+						</div>
+					</div>
+				</div>
+				{# Actions buttons #}
+				<div class="d-flex flex-row justify-content-end">
+					<a class="btn-edit btn btn-md btn-primary mx-2 my-2" href="{{ path('app_backoffice_product_edit', {'id': product.id}) }}">
+						<i class="far fa-edit"></i>
+					</a>
+
+					{{ include('backoffice/product/_delete_form.html.twig') }}
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+	<div class="text-center">
+		<a class="btn-edit btn btn-md btn-primary mx-2 my-2" href="{{ path('app_backoffice_home') }}">
+			<i class="fas fa-reply-all"></i>
+		</a>
+	</div>
+
+{% endblock %}
+
+{# <h1>Product index</h1>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Name</th>
+				<th>Description</th>
+				<th>Image_front</th>
+				<th>Image_profile</th>
+				<th>Image_top</th>
+				<th>Weight</th>
+				<th>Volume</th>
+				<th>Height</th>
+				<th>Length</th>
+				<th>Created_at</th>
+				<th>actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for product in products %}
+				<tr>
+					<td>{{ product.id }}</td>
+					<td>{{ product.name }}</td>
+					<td>{{ product.description }}</td>
+					<td>{{ product.imageFront }}</td>
+					<td>{{ product.imageProfile }}</td>
+					<td>{{ product.imageTop }}</td>
+					<td>{{ product.weight }}</td>
+					<td>{{ product.volume }}</td>
+					<td>{{ product.height }}</td>
+					<td>{{ product.length }}</td>
+					<td>{{ product.createdAt ? product.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+					<td>
+						<a href="{{ path('app_backoffice_product_show', {'id': product.id}) }}">show</a>
+						<a href="{{ path('app_backoffice_product_edit', {'id': product.id}) }}">edit</a>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="12">no records found</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+	<a href="{{ path('app_backoffice_product_new') }}">Create new</a>
+	{{ include('backoffice/product/_delete_form.html.twig') }} #}

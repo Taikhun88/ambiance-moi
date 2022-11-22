@@ -3,9 +3,10 @@
 namespace App\Entity;
 
 use App\Repository\ProductCategoryRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-
 
 #[ORM\Entity(repositoryClass: ProductCategoryRepository::class)]
 class ProductCategory
@@ -24,6 +25,22 @@ class ProductCategory
 
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
+
+    #[ORM\ManyToMany(targetEntity: Product::class, mappedBy: 'category')]
+    private Collection $products;
+
+    public function __construct()
+    {
+        $this->products = new ArrayCollection();
+    }
+
+    // magic method called to convert an object such as catagory into string
+    public function __toString()
+    {
+        $name = $this->name;
+
+        return $name;
+    }
 
     public function getId(): ?int
     {
@@ -65,4 +82,31 @@ class ProductCategory
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, Product>
+     */
+    public function getProducts(): Collection
+    {
+        return $this->products;
+    }
+
+    public function addProduct(Product $product): self
+    {
+        if (!$this->products->contains($product)) {
+            $this->products->add($product);
+            $product->addCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProduct(Product $product): self
+    {
+        if ($this->products->removeElement($product)) {
+            $product->removeCategory($this);
+        }
+
+        return $this;
+    }    
 }

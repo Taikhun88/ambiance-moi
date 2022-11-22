@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Editer un produit -
+	{{ parent() }}
+{% endblock %}
+
+{% block body %}
+	<div class='d-flex flex-column align-items-center text-center'>
+		<h1 class="my-3">Editer un produit</h1>
+
+		{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+        
+        {{ form_errors(form) }}
+
+		{{ form_row(form.name) }}
+		{{ form_row(form.description) }}
+		{{ form_row(form.image_front) }}
+		{{ form_row(form.image_profile) }}
+		{{ form_row(form.image_top) }}
+		{{ form_row(form.weight) }}
+		{{ form_row(form.volume) }}
+		{{ form_row(form.height) }}
+		{{ form_row(form.length) }}
+		{{ form_row(form.category) }}
+
+		{{ form_widget(form.save, { 'label': 'Enregistrer' }) }}
+
+		{{ form_end(form) }}
+	</div>
+
+	<div class="text-center">
+		<a class="btn-edit btn btn-md btn-primary mx-2 my-2" href="{{ path('app_backoffice_home') }}">
+			<i class="fas fa-reply-all"></i>
+		</a>
+	</div>
+
+{% endblock %}
+
+{# {% extends 'base.html.twig' %}
+
+{% block title %}Edit Product{% endblock %}
+
+{% block body %}
+    <h1>Edit Product</h1>
+
+    {{ include('backoffice/product/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_backoffice_product_index') }}">back to list</a>
+
+    {{ include('backoffice/product/_delete_form.html.twig') }}
+{% endblock %} #}

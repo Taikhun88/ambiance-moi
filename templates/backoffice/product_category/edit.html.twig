@@ -1,19 +1,19 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Nouvelle catégorie de produits -
+{% block title %}Editer une catégorie de produits -
 	{{ parent() }}
 {% endblock %}
 
 {% block body %}
 	<div class='d-flex flex-column align-items-center text-center'>
-		<h1 class="my-3">Créer une catégorie de produits</h1>
+		<h1 class="my-3">Editer une categorie de produits</h1>
 
 		{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
 		
 		{{ form_errors(form) }}
 
 		{{ form_row(form.name, { 'label': 'Nom' }) }}
-		{{ form_row(form.image, { 'label': 'Image' }) }}
+		{{ form_row(form.image, { 'label': 'Image', 'required': false }) }}
 
 		{{ form_widget(form.save, { 'label': 'Enregistrer' }) }}
 

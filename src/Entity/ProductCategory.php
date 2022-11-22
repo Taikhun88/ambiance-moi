@@ -29,9 +29,13 @@ class ProductCategory
     #[ORM\ManyToMany(targetEntity: Product::class, mappedBy: 'category')]
     private Collection $products;
 
+    #[ORM\OneToMany(mappedBy: 'product_category', targetEntity: Post::class)]
+    private Collection $posts;
+
     public function __construct()
     {
         $this->products = new ArrayCollection();
+        $this->posts = new ArrayCollection();
     }
 
     // magic method called to convert an object such as catagory into string
@@ -105,6 +109,36 @@ class ProductCategory
     {
         if ($this->products->removeElement($product)) {
             $product->removeCategory($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Post>
+     */
+    public function getPosts(): Collection
+    {
+        return $this->posts;
+    }
+
+    public function addPost(Post $post): self
+    {
+        if (!$this->posts->contains($post)) {
+            $this->posts->add($post);
+            $post->setProductCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removePost(Post $post): self
+    {
+        if ($this->posts->removeElement($post)) {
+            // set the owning side to null (unless already changed)
+            if ($post->getProductCategory() === $this) {
+                $post->setProductCategory(null);
+            }
         }
 
         return $this;

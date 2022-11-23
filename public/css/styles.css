@@ -24,7 +24,7 @@ form[name=user_form] > div.mb-3 > div.form-check {
     justify-content: center;
 }
 
-form[name=product_form], form[name=user_form], form[name=product_category_form] {
+form[name=product_form], form[name=user_form], form[name=product_category_form], form[name=post] {
     min-width: 450px;
     width: 500px;
 }

@@ -1,0 +1,73 @@
+	<div class="d-flex flex-column text-center" id="homeBO">
+		<h1 class="my-3">Gestion des posts</h1>
+		<div>
+			<a class="btn-edit btn btn-md btn-primary mx-2 my-2" href="{{ path('app_backoffice_post_new') }}">
+				<i class="fas fa-plus-square"></i>
+			</a>
+		</div>
+		{# Post CARD LOOPED #}
+		{% for post in listOfPosts %}
+
+				<div class="d-flex flex-column container my-3 bg-info" id="container-usersCards">
+					<div class="col-12 bg-dark text-white fw-bold">{{ post.id }}
+						-
+						{{ post.title}}
+					</div>
+					<div class="d-flex flex-row row">
+						{# ENTETES PROPERTIES #}
+						<div class="col-4 col-md-5 col-lg-6 d-flex flex-column align-items-start fw-bold border border-start-0 border-secondary p-0">
+							<h5 class="border-bottom border-secondary h6 w-100 m-0">PROPERTIES HEADER</h5>
+							<div class="border-bottom border-secondary w-100 text-start">Image</div>
+							<div class="border-bottom border-secondary w-100 text-start">Vidéo</div>
+							<div class="border-bottom border-secondary w-100 text-start">Catégorie</div>
+							<div class="border-bottom border-secondary w-100 text-start">Contenu</div>
+							<div class="border-bottom border-secondary w-100 text-start">Status</div>
+							<div class="border-bottom border-secondary w-100 text-start">Auteur</div>
+							<div class="w-100 text-start {{ loop.last ? ' ' : 'border-bottom border-secondary' }}">Créé le</div>
+						</div>
+						{# Posts DATA #}
+						<div class="col-8 col-md-7 col-lg-6 border border-start-0 border-end-0 border-secondary p-0">
+							<h5 class="border-bottom border-secondary h6 m-0">DATA HEADERS</h5>
+							<div class="border-bottom border-secondary w-100 text-start">
+								<img src="" alt="">
+								{{ post.image  ?  post.image  : "N/A" }}
+							</div>
+							<div class="border-bottom border-secondary w-100 text-start">
+								{{ post.video  ?  post.video  : "N/A" }}
+							</div>
+							
+								<div class="border-bottom border-secondary w-100 text-start">
+									TEST
+								</div>
+						
+							<div class="border-bottom border-secondary w-100 text-start">
+								{{ post.content  ?  post.content  : "N/A" }}
+							</div>
+							<div class="border-bottom border-secondary w-100 text-start">
+								{{ post.status  ?  post.status  : "N/A" }}
+							</div>
+							<div class="border-bottom border-secondary w-100 text-start">
+								{{ post.author  ?  post.author  : "N/A" }}
+							</div>
+							<div class="w-100 text-start {{ loop.last ? ' ' : 'border-bottom border-secondary' }}">
+								{{ post.createdAt|date("d-m-Y") }}
+							</div>
+						</div>
+					</div>
+					{# Actions buttons #}
+					<div class="d-flex flex-row justify-content-end">
+						<a class="btn-edit btn btn-md btn-primary mx-2 my-2" href="{{ path('app_backoffice_post_edit', {'id': post.id}) }}">
+							<i class="far fa-edit"></i>
+						</a>
+
+						{{ include('backoffice/post/_delete_form.html.twig') }}
+					</div>
+				</div>
+
+		{% endfor %}
+	</div>
+	<div class="text-center">
+		<a class="btn-edit btn btn-md btn-primary mx-2 my-2" href="{{ path('app_backoffice_home') }}">
+			<i class="fas fa-reply-all"></i>
+		</a>
+	</div>

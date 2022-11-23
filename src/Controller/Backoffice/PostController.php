@@ -5,6 +5,7 @@ namespace App\Controller\Backoffice;
 use App\Entity\Post;
 use App\Form\PostType;
 use App\Repository\PostRepository;
+use DateTimeImmutable;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,8 +17,11 @@ class PostController extends AbstractController
     #[Route('/', name: 'app_backoffice_post_index', methods: ['GET'])]
     public function index(PostRepository $postRepository): Response
     {
+        $listOfPosts = $postRepository->findAll();
+        // dd($listOfPosts);
+
         return $this->render('backoffice/post/index.html.twig', [
-            'posts' => $postRepository->findAll(),
+            'listOfPosts' => $listOfPosts,
         ]);
     }
 
@@ -29,6 +33,9 @@ class PostController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $post->setCreatedAt(new DateTimeImmutable());    
+
             $postRepository->add($post, true);
 
             return $this->redirectToRoute('app_backoffice_post_index', [], Response::HTTP_SEE_OTHER);

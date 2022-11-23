@@ -20,7 +20,7 @@ class ProductController extends AbstractController
         $products = $productRepository->findAll();
         
         return $this->render('backoffice/product/index.html.twig', [
-            'products' => $productRepository->findAll(),
+            'products' => $products,
         ]);
     }
 

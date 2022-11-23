@@ -85,5 +85,7 @@ https://symfony.com/doc/current/form/form_customization.html
 
 https://symfonycasts.com/screencast/symfony-security/verify-email
 
-
+### INSTALL JWT
+1. composer require lexik/jwt-authentication-bundle
+2. php bin/console lexik:jwt:generate-keypair
 

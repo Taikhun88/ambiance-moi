@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau post -
+	{{ parent() }}
+{% endblock %}
+
+{% block body %}
+	<div class='d-flex flex-column align-items-center text-center'>
+		<h1 class="my-3">Créer un post</h1>
+
+		{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+
+		{{ form_errors(form) }}
+
+		{{ form_row(form.title) }}
+		{{ form_row(form.content) }}
+		{{ form_row(form.image) }}
+		{{ form_row(form.video) }}
+		{# {{ form_row(form.status) }} #}
+		{# {{ form_row(form.category) }} #}
+
+		{{ form_widget(form.save, { 'label': 'Enregistrer' }) }}
+
+		{{ form_end(form) }}
+	</div>
+
+	<div class="text-center">
+		<a class="btn-edit btn btn-md btn-primary mx-2 my-2" href="{{ path('app_backoffice_home') }}">
+			<i class="fas fa-reply-all"></i>
+		</a>
+	</div>
+
+{% endblock %}
+
+{# {% extends 'base.html.twig' %}
+
+{% block title %}New Post{% endblock %}
+
+{% block body %}
+    <h1>Create new Post</h1>
+
+    {{ include('backoffice/post/_form.html.twig') }}
+
+    <a href="{{ path('app_backoffice_post_index') }}">back to list</a>
+{% endblock %} #}

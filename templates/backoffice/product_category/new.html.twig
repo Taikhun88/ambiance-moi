@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouvelle catégorie de produits -
+	{{ parent() }}
+{% endblock %}
+
+{% block body %}
+	<div class='d-flex flex-column align-items-center text-center'>
+		<h1 class="my-3">Créer une catégorie de produits</h1>
+
+		{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+		
+		{{ form_errors(form) }}
+
+		{{ form_row(form.name, { 'label': 'Nom' }) }}
+		{{ form_row(form.image, { 'label': 'Image' }) }}
+
+		{{ form_widget(form.save, { 'label': 'Enregistrer' }) }}
+
+		{{ form_end(form) }}
+	</div>
+
+	<div class="text-center">
+		<a class="btn-edit btn btn-md btn-primary mx-2 my-2" href="{{ path('app_backoffice_home') }}">
+			<i class="fas fa-reply-all"></i>
+		</a>
+	</div>
+
+{% endblock %}

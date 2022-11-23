@@ -1,0 +1,6 @@
+{# delete button to be included to a form
+Enables safer way to delete action with token #}
+<form method="post" action="{{ path('app_backoffice_product_delete', {'id': product.id}) }}" onsubmit="return confirm('Etes vous sûr de vouloir supprimer ce produit?');">
+	<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ product.id ) }}">
+	<button class="btn-delete btn btn-sm btn-danger mx-2 my-2"><i class="fas fa-trash-alt"></i></button>
+</form>

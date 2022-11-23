@@ -8,16 +8,27 @@
 	<div class='d-flex flex-column align-items-center text-center'>
 		<h1 class="my-3">Créer un utilisateur</h1>
 
-		{{ form_start(form) }}
+		{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+		{# l'attribue no validate intégrée au form permet de désactiver l'affichage par défaut des messages d'erreur ajoutés des élements html pour laisser place aux erreurs customisées des contraintes de validation 
+				https://www.strangebuzz.com/en/blog/disable-the-html5-validation-of-all-your-symfony-forms-with-a-feature-flag
+				#}
 		{{ form_errors(form) }}
 
 		{{ form_row(form.pseudo) }}
 		{{ form_row(form.email) }}
-		{{ form_row(form.password) }}
-		{{ form_row(form.avatar) }}
+		{{ form_row(form.password, { 'label':  'Mot de passe par défaut : 123456', 'disabled': true } ) }}
+		{{ form_row(form.avatar, { 'required': false } ) }}
+		{{ form_row(form.isVerified, { 'required': false } ) }}
 		{{ form_widget(form.save, { 'label': 'Enregistrer' }) }}
+		{# https://symfony.com/doc/current/form/form_customization.html #}
 
 		{{ form_end(form) }}
+	</div>
+
+	<div class="text-center">
+		<a class="btn-edit btn btn-md btn-primary mx-2 my-2" href="{{ path('app_backoffice_home') }}">
+			<i class="fas fa-reply-all"></i>
+		</a>
 	</div>
 
 {% endblock %}

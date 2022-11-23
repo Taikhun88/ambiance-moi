@@ -18,6 +18,22 @@ body {
     margin: 0;
 }
 
+/* FORMS */
+form[name=user_form] > div.mb-3 > div.form-check {
+    display: flex;
+    justify-content: center;
+}
+
+form[name=product_form], form[name=user_form], form[name=product_category_form], form[name=post] {
+    min-width: 450px;
+    width: 500px;
+}
+
+.w-500 {
+    width: 500px;
+}
+
+
 .btn-size {
     width: 75px!important;
     height: 50px!important;

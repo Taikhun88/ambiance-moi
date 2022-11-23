@@ -31,9 +31,13 @@
 							<li>
 								<a class="dropdown-item" href="{{ path('app_backoffice_home') }}">Mes informations</a>
 							</li>
+							{# Hides the menu if not Admin
+							https://symfonycasts.com/screencast/symfony2-ep2/twig-security-is-authenticated #}
+							{% if is_granted('ROLE_ADMIN') %}
 							<li class="">
 								<a class="dropdown-item" href="{{ path('app_backoffice_home') }}">Backoffice</a>
 							</li>
+							{% endif %}
 						</ul>
 					</div>
 				{% endif %}

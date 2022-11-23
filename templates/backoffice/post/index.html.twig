@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CRUD des posts -
+	{{ parent() }}
+{% endblock %}
+
+{% block body %}
+<div class="d-flex flex-column align-items-center">
+		<h1 class="my-3">Gestion des posts</h1>
+		<div>
+			<a class="btn-edit btn btn-md btn-primary mx-2 my-2" href="{{ path('app_backoffice_post_new') }}">
+				<i class="fas fa-plus-square"></i>
+			</a>
+		</div>
+</div>
+<div class="d-flex flex-row flex-wrap justify-content-between container">
+
+	{% for post in listOfPosts %}
+
+		<div class="d-flex flex-column bg-dark text-white col-12 col-md-5 col-lg-3 border border-3 border-warning my-3 p-3 m-sm-3 rounded">
+			<div class="d-flex flex-row flex-nowrap justify-content-center">
+				{{ post.title }} - Post n°{{ post.id }}
+			</div>
+			<div class="d-flex flex-row justify-content-center">
+			{% if post.image %}
+				{{ post.image }}
+				{% elseif post.video %}
+				{{ post.video }}
+				{% else %}
+				Pas de média chargé
+			{% endif %}
+			
+			</div>
+			<div class="d-flex flex-row justify-content-around">
+				<div>
+					Catégorie : 
+				</div>
+
+				<div>
+					Status : {{ post.status }} 
+				</div>
+				<div>
+					Publié le : {{ post.createdAt|date("d-m-Y") }} 
+				</div>
+			</div>
+			<div class="d-flex flex-row">
+				{{ post.content }}
+			</div>
+			<div class="d-flex flex-row">
+				Auteur : {{ post.author }}
+			</div>
+		</div>
+	{% endfor %}
+</div>
+{% endblock %}

@@ -77,13 +77,23 @@ https://symfony.com/doc/current/form/form_customization.html
  1. FileType de User.php. Lors de l'edit, la page ne peut afficher l'input. Passer le mapped à false dans le formtype de l'input concerné. Le bug se présente car l'input en edit charge un nom de fichier (string) depuis la database alors qu'il doit permettre de upload un file (objet).
 
  2. Some services can not be injected or autowired, which mean be called as a Service in the parameters of your function. To allow this to called as a service injected, Go to add the name of the service into the services.yaml file default : bind: "name of your service". In most cases, Symfony may provide you the proper name to add  
- 
+
  https://symfonycasts.com/screencast/symfony-security/manual-auth
+
+ 3. Lors de la génération d'une paire de clé privées/publiques pour l'installation du bundle JWT. La commande fournie par la documentation peut provoquer une erreur. Exécuter les commandes suivantes une par une  
  
-3. To allow the user to not be logged in (registration.controller) when they click the confirmation link in their email. With this mode, we need to pass an array as the final argument to include the user id
+https://stackoverflow.com/questions/66252709/error-system-libraryfopenno-such-process
+  
+4. To allow the user to not be logged in (registration.controller) when they click the confirmation link in their email. With this mode, we need to pass an array as the final argument to include the user id
 ['id' => $user->getId()]  
 
 https://symfonycasts.com/screencast/symfony-security/verify-email
 
+### INSTALL JWT
+Source : https://symfony.com/bundles/LexikJWTAuthenticationBundle/current/index.html#working-with-cors-requests  
 
-
+1. Installer le bundle JWT > composer require lexik/jwt-authentication-bundle
+2. Générer une paire de clé publique/privée > php bin/console lexik:jwt:generate-keypair
+3. Déplacer les JWT Variables qui sont dans .env dans .env.local (comportent les clé et passphrase)
+4. Configurer security.yaml, routes.yaml
+(5. Ajouter les eventlisteners pour l'utilisation des handler, AuthenticationSuccessListener)

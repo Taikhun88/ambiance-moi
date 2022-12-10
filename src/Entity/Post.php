@@ -43,7 +43,7 @@ class Post
     #[ORM\ManyToOne(inversedBy: 'posts')]
     #[Groups("postsList")]
     private ?User $author = null;
-
+    
     #[ORM\ManyToOne(inversedBy: 'posts')]
     #[Groups("postsList")]
     private ?ProductCategory $product_category = null;

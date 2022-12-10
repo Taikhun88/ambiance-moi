@@ -3,8 +3,10 @@
 namespace App\Controller\Backoffice;
 
 use App\Entity\Post;
+use App\Entity\User;
 use App\Form\PostType;
 use App\Repository\PostRepository;
+use App\Repository\UserRepository;
 use DateTimeImmutable;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,15 +28,21 @@ class PostController extends AbstractController
     }
 
     #[Route('/new', name: 'app_backoffice_post_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, PostRepository $postRepository): Response
+    public function new(Request $request, PostRepository $postRepository, UserRepository $userRepository): Response
     {
         $post = new Post();
+        
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
-
+        
         if ($form->isSubmitted() && $form->isValid()) {
-
-            $post->setCreatedAt(new DateTimeImmutable());    
+            
+            $post->setCreatedAt(new DateTimeImmutable());
+            // Gets the current user via the hidden input in view new.html.twig with name attribute
+            $authorId = $request->request->get('postAuthor');
+            // Gets the pseudo with the whole object User thanks to the ID
+            $author = $userRepository->find($authorId);
+            $post->setAuthor($author);    
 
             $postRepository->add($post, true);
 

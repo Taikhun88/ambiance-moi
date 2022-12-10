@@ -30,7 +30,7 @@ class PostType extends AbstractType
             // ->add('status')
             // ->add('createdAt')
             // ->add('author')
-            // ->add('product_category')
+            ->add('product_category')
             ->add('save', SubmitType::class)
 
         ;

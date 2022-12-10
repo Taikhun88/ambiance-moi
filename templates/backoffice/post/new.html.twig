@@ -9,15 +9,15 @@
 		<h1 class="my-3">Créer un post</h1>
 
 		{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
-
+		<input name="postAuthor" type="hidden" value="{{ app.user.id }}">
 		{{ form_errors(form) }}
-
+		
 		{{ form_row(form.title) }}
 		{{ form_row(form.content) }}
 		{{ form_row(form.image) }}
 		{{ form_row(form.video) }}
 		{# {{ form_row(form.status) }} #}
-		{# {{ form_row(form.category) }} #}
+		{{ form_row(form.product_category, { 'label': 'Catégorie' }) }}
 
 		{{ form_widget(form.save, { 'label': 'Enregistrer' }) }}
 

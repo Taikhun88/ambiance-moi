@@ -97,3 +97,9 @@ Source : https://symfony.com/bundles/LexikJWTAuthenticationBundle/current/index.
 3. Déplacer les JWT Variables qui sont dans .env dans .env.local (comportent les clé et passphrase)
 4. Configurer security.yaml, routes.yaml
 (5. Ajouter les eventlisteners pour l'utilisation des handler, AuthenticationSuccessListener)
+
+### MEMO  
+Pour toute relation, il faut faire appel à l'objet complet.
+Donner l'objet complet pour toute relation
+ex : $author = $userRepository->find($authorId);
+

@@ -27,10 +27,12 @@ class PostType extends AbstractType
             ->add('video', FileType::class, [
                 'label' => 'Vidéo'
             ])
-            // ->add('status')
+            ->add('status')
             // ->add('createdAt')
             // ->add('author')
-            // ->add('product_category')
+            ->add('product_category', null, [
+                'label' => 'Catégorie'
+            ])               
             ->add('save', SubmitType::class)
 
         ;

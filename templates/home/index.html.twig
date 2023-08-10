@@ -12,21 +12,26 @@
 	{{ parent()}}
 {% endblock %}
 {% block body %}
-	{# Video introducting the business model to hook up users  #}
-	<section class="section-one-bg d-flex flex-column text-center">
-		<h1 class="text-center h3 my-3 w-75 m-auto ">Envie d'une soirée gaming ou ciné, choisis ta room. On débarque deuspi, tu kiffes à l'infini</h1>
-
-			<img src="" alt="">
+	{# Section 1 : Video introducting the business model to hook up users  #}
+	<section class="section-one-bg d-flex flex-column text-center">	
+			<h1 id="homepage_main_title" class="h4 my-1 text-center w-75 m-auto">Titre principal</h1>	
 			<video class="w-75 m-auto" controls muted autoplay>
 				<source src="/videos/benq_w1800i.mp4" type="video/mp4">
 				{# <source src="movie.ogg" type="video/ogg">Votre format vidéo n'est pas compatible #}
 			</video>
-	
 	</section>
 
-	{# Feed of image or video posts to promote #}
-	<section class="section-two-bg d-flex flex-row flex-wrap text-center">
-		<h2 class="w-100">Titre section 2</h2>
+	{# Section 2 process explaining how to proceed book, payment, retrieve and return #}
+	<section class="section-two-bg d-flex flex-column my-5 text-center">
+		<h2 class="h4 my-1 text-center w-75 m-auto">Comment ça marche ?</h2>
+		<div>
+			<img class="img-fluid w-75" src="{{ asset('images/process_location.png') }}" alt="">
+		</div>
+	</section>
+
+	{# Section 3 : list of cards introducing products with main details, image and actions button to book and click event button to display availabilities for the product #}
+	<section class="section-two-bg d-flex flex-column my-5 text-center">
+		<h2 class="h4 my-1 text-center w-75 m-auto">Les dernières locations</h2>
 		<div class="d-flex flex-row flex-wrap w-100 justify-content-around">
 			<div>
 				<div>
@@ -67,18 +72,10 @@
 		</div>
 	</section>
 
-	{# Section speaks about the founders #}
-	<section class="section-three-bg d-flex flex-column text-center">
-		<h2>Qui sommes-nous?</h2>
-		<div>
-			<img class="img-fluid w-50" src="{{ asset('images/who-are-we-section.jpg') }}" alt="">
-
-		</div>
-	</section>
 
 	{# feature Réservation soirée ou weekend sans création compte #}
-	<section class="section-two-bg d-flex flex-column text-center">
-		<h2>Réservations créneaux avec pré-autorisation cb ou paypal</h2>
+	<section class="section-two-bg d-flex flex-column my-5 text-center">
+		<h2 class="h4 my-1 text-center w-75 m-auto">Disponibilités du produit sélectionné</h2>
 		<div>
 			
 		</div>

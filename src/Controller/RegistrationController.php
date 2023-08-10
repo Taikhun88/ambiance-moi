@@ -35,7 +35,7 @@ class RegistrationController extends AbstractController
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
-        $password = "$user->setPassword('')";
+        $password = $user->setPassword('');
 
         // Validate password strength
         $uppercase = preg_match('@[A-Z]@', $password);

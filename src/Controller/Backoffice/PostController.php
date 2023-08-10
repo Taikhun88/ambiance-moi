@@ -3,17 +3,27 @@
 namespace App\Controller\Backoffice;
 
 use App\Entity\Post;
+use App\Entity\User;
 use App\Form\PostType;
 use App\Repository\PostRepository;
+use App\Service\ImageUploader;
 use DateTimeImmutable;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 #[Route('/backoffice/post')]
 class PostController extends AbstractController
 {
+    private $tokenStorage;
+
+    public function __construct(TokenStorageInterface $tokenStorage)
+    {
+        $this->tokenStorage = $tokenStorage;
+    }
+
     #[Route('/', name: 'app_backoffice_post_index', methods: ['GET'])]
     public function index(PostRepository $postRepository): Response
     {
@@ -26,17 +36,28 @@ class PostController extends AbstractController
     }
 
     #[Route('/new', name: 'app_backoffice_post_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, PostRepository $postRepository): Response
+    public function new(Request $request, PostRepository $postRepository, ImageUploader $imageUploader): Response
     {
         $post = new Post();
+        $user = $this->tokenStorage->getToken()->getUser();
+
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $post->setCreatedAt(new DateTimeImmutable());    
+            $post->setCreatedAt(new DateTimeImmutable());
+            $post->setAuthor($user);
+
+            $newFilename = $imageUploader->upload($form, 'image', 'images/posts');
+
+            if ($newFilename) {
+                $post->setImage($newFilename);
+            }
 
             $postRepository->add($post, true);
+
+            $this->addFlash('success', 'Le post a bien été créé');
 
             return $this->redirectToRoute('app_backoffice_post_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -76,7 +97,7 @@ class PostController extends AbstractController
     #[Route('/{id}', name: 'app_backoffice_post_delete', methods: ['POST'])]
     public function delete(Request $request, Post $post, PostRepository $postRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$post->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $post->getId(), $request->request->get('_token'))) {
             $postRepository->remove($post, true);
         }
 

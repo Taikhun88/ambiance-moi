@@ -75,22 +75,22 @@ ul.mt-dropdownmenu {
 }
 
 /* HOMEPAGE */
+#homepage_main_title {
+    margin: 0;
+}
+
 /* section 1 */
 .section-one-bg {
-    background-color: #fefae09d;
-    padding-bottom: 20px;
+    background-color: white;
 }
 
 /* section 2 */
 .section-two-bg {
-    background-color: #ffddd28f;
-    padding-bottom: 20px;
+
 }
 
 /* section 3 */
 .section-three-bg {
-    background-color: #fefae09d;
-    padding-bottom: 20px;
 }
 
 .section-three-bg .img-fluid {
@@ -113,6 +113,18 @@ ul.mt-dropdownmenu {
 }
 
 /* Backoffice */
+
+/* Posts cards */
+.postCard_style {
+    border-top: 5px solid rgb(220, 53, 69);
+    border-left: 5px solid rgb(220, 53, 69);   
+    border-right: 5px solid rgb(93, 225, 230); 
+    border-bottom: 5px solid rgb(93, 225, 230);
+    background-color: black;
+    color: whitesmoke;
+    border-radius: 10px;
+
+}
 
 /* Homepage backoffice */
 #container-usersCards {
